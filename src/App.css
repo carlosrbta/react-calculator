@@ -13,6 +13,7 @@ body,
 
 .calculator {
   border: 1px solid #ebebeb;
+  box-shadow: 0 0 0 0.2rem rgba(235, 235, 235, 0.3);
   border-radius: 8px;
   padding: 10px;
   width: 320px;
@@ -26,6 +27,9 @@ body,
   padding: 5px;
 }
 
-.btn-warning {
+.btn-warning,
+.btn-warning:focus,
+.btn-warning:hover,
+.btn-warning:not(:disabled):not(.disabled):active {
   color: white;
 }
