@@ -90,6 +90,7 @@ function App() {
   return (
     <Container>
       <Form className="calculator">
+        <h5 className="title">React Calculator</h5>
         <Row>
           <Col className="col-form-control">
             <Form.Control onChange={() => {}} value={value} />
@@ -149,6 +150,15 @@ function App() {
           />
         </Row>
       </Form>
+
+      <div className="footer">
+        <a
+          href="https://github.com/carlosrbta/react-calculator"
+          target="_blank"
+        >
+          Github
+        </a>
+      </div>
     </Container>
   );
 }
