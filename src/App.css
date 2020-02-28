@@ -33,3 +33,13 @@ body,
 .btn-warning:not(:disabled):not(.disabled):active {
   color: white;
 }
+
+.col-form-control {
+  padding-bottom: 15px;
+}
+
+.form-text {
+  position: absolute;
+  margin-top: 2px;
+  font-size: 70%;
+}

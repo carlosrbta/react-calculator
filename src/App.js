@@ -9,14 +9,23 @@ import {
   backspaceKey,
   escapeKey,
   enterKey,
-  operatorKeys
+  operatorKeys,
+  operations
 } from "./utils";
-import { isValidValue } from "./validation";
-
+import { isValidExpression } from "./validation";
+import {
+  resolveNumberWithParenthesesTogether,
+  resolvePercents,
+  convertValueIntoArray,
+  resolveInsideParentheses,
+  resolveValue
+} from "./functions";
+import { isNumber } from "lodash";
 import "./App.css";
 
 function App() {
-  const [value, setValue] = useState("2+2");
+  const [value, setValue] = useState("");
+  const [invalidExpression, setInvalidExpression] = useState(false);
 
   useEffect(() => {
     window.addEventListener("keydown", onKeydown);
@@ -25,7 +34,9 @@ function App() {
 
   const onClick = val => addValue(val);
 
-  const clearAll = () => setValue("");
+  const clearAll = () => {
+    setValue("");
+  };
 
   const clearLast = () => {
     const newValue = value.substring(0, value.length - 1);
@@ -33,20 +44,20 @@ function App() {
   };
 
   const calculate = () => {
-    const results = [];
+    const checkValid = isValidExpression(value);
+    if (checkValid) {
+      // setInvalidExpression(checkValid);
+      // return;
+    }
 
-    let num1, operator, num2;
+    let tmpValue = value;
 
-    value.split("").map(val => {
-      if (operatorKeys.includes(val)) {
-        console.log("is", val);
-      } else {
-        console.log(val);
-      }
-    });
+    tmpValue = resolvePercents(tmpValue);
+    tmpValue = resolveNumberWithParenthesesTogether(tmpValue);
+    tmpValue = resolveInsideParentheses(tmpValue);
+    tmpValue = resolveValue(tmpValue);
 
-    console.log(value);
-    console.log("calculate");
+    setValue(tmpValue);
   };
 
   const onKeydown = ({ key }) => {
@@ -66,15 +77,13 @@ function App() {
       calculate();
       return;
     }
-
     addValue(key);
   };
 
   const addValue = add => {
     const newValue = `${value}${add}`;
 
-    if (!isValidValue(newValue)) return;
-
+    // if (!isValidValue(newValue)) return;
     setValue(newValue);
   };
 
@@ -82,30 +91,18 @@ function App() {
     <Container>
       <Form className="calculator">
         <Row>
-          <Col>
+          <Col className="col-form-control">
             <Form.Control onChange={() => {}} value={value} />
+            {invalidExpression && (
+              <Form.Text className="text-muted">Invalid expression</Form.Text>
+            )}
           </Col>
         </Row>
 
         <Row>
-          <CalcButton
-            variant="secondary"
-            operator="("
-            onClick={onClick}
-            disabled
-          />
-          <CalcButton
-            variant="secondary"
-            operator=")"
-            onClick={onClick}
-            disabled
-          />
-          <CalcButton
-            variant="secondary"
-            operator="%"
-            onClick={onClick}
-            disabled
-          />
+          <CalcButton variant="secondary" operator="(" onClick={onClick} />
+          <CalcButton variant="secondary" operator=")" onClick={onClick} />
+          <CalcButton variant="secondary" operator="%" onClick={onClick} />
           <CalcButton variant="warning" operator="CE" onClick={clearAll} />
         </Row>
 
