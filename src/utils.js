@@ -1,47 +1,29 @@
 const backspaceKey = "Backspace";
-
 const escapeKey = "Escape";
-
 const enterKey = "Enter";
-
+const pointKey = ".";
+const equalKey = "=";
+const numbersKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 const operatorKeys = ["+", "-", "*", "/"];
+const parenthesesKeys = ["(", ")"];
 
 const keyList = [
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "0",
-  "=",
-  "(",
-  ")",
-  ".",
+  ...numbersKeys,
+  ...parenthesesKeys,
   ...operatorKeys,
+  pointKey,
+  equalKey,
   backspaceKey,
   escapeKey,
   enterKey
 ];
 
-//  const newValue = operations[operator](currentValue, inputValue)
 const operations = {
-  "/": (prevValue, nextValue) => prevValue / nextValue,
-  "*": (prevValue, nextValue) => prevValue * nextValue,
-  "+": (prevValue, nextValue) => prevValue + nextValue,
-  "-": (prevValue, nextValue) => prevValue - nextValue,
-  "=": (prevValue, nextValue) => nextValue
+  "/": (number1, number2) => parseFloat(number1) / parseFloat(number2),
+  "*": (number1, number2) => parseFloat(number1) * parseFloat(number2),
+  "+": (number1, number2) => parseFloat(number1) + parseFloat(number2),
+  "-": (number1, number2) => parseFloat(number1) - parseFloat(number2),
+  "=": (number1, number2) => number2
 };
-
-/*
-a number key (0–9)
-an operator key (+, -, ×, ÷)
-the decimal key
-the equals key
-the clear key
-*/
 
 export { keyList, operatorKeys, backspaceKey, escapeKey, enterKey, operations };
