@@ -6,6 +6,7 @@ const equalKey = "=";
 const numbersKeys = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0"];
 const operatorKeys = ["+", "-", "*", "/"];
 const parenthesesKeys = ["(", ")"];
+const percentsKey = "%";
 
 const keyList = [
   ...numbersKeys,
@@ -15,7 +16,8 @@ const keyList = [
   equalKey,
   backspaceKey,
   escapeKey,
-  enterKey
+  enterKey,
+  percentsKey
 ];
 
 export { keyList, operatorKeys, backspaceKey, escapeKey, enterKey };

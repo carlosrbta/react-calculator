@@ -7,7 +7,6 @@ import Form from "react-bootstrap/Form";
 import { keyList, backspaceKey, escapeKey, enterKey } from "./constants";
 import {
   resolveNumberWithParenthesesTogether,
-  resolvePercents,
   resolveInsideParentheses,
   resolveValue
 } from "./functions";
@@ -41,7 +40,6 @@ function App() {
     try {
       let tmpValue = value;
 
-      tmpValue = resolvePercents(tmpValue);
       tmpValue = resolveNumberWithParenthesesTogether(tmpValue);
       tmpValue = resolveInsideParentheses(tmpValue);
       tmpValue = resolveValue(tmpValue);

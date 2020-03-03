@@ -4,17 +4,16 @@ export const resolveNumberWithParenthesesTogether = value => {
   return value.replace(/[0-9]\(/g, e => e.replace("(", "*("));
 };
 
-// Resolve numbers with %
-// Exemple 20% ---> 20/100
-export const resolvePercents = value => {
-  return value.replace(new RegExp("%", "g"), e => e.replace("%", "/100"));
+export const isOnlyValueWithPercents = value => {
+  const regex = "(\\d+(\\.\\d+)?|\\.\\d+) ?%";
+
+  return value.match(new RegExp("^" + regex + "$", "i"));
 };
 
 export const resolveInsideParentheses = value => {
   let hasMoreParentheses = true;
   let temp = value;
 
-  let i = 0;
   while (hasMoreParentheses) {
     let find = findParentheses(temp);
 
@@ -29,23 +28,21 @@ export const resolveInsideParentheses = value => {
     const total = resolveValue(find);
 
     temp = temp.replace("(" + find + ")", total);
-
-    if (i === 3) {
-      hasMoreParentheses = false;
-      console.log("block");
-      // return temp;
-    }
-    i++;
   }
 
   return temp;
 };
 
 export const resolveValue = value => {
-  const operators = ["*", "/", "+", "-"];
+  console.log("resolveValue", value);
+  const operators = ["%", "*", "/", "+", "-"];
 
-  if (/^[*+\/]/.test(value)) {
+  if (/^[%*+\/]/.test(value)) {
     throw new Error("Cannot start the expression with invalid operators");
+  }
+
+  if (isOnlyValueWithPercents(value)) {
+    return operations["/"](value, 100);
   }
 
   let temp = value;
@@ -60,7 +57,9 @@ export const resolveValue = value => {
       const number2 = arrayValues[index + 1];
 
       const total = operations[operator](number1, number2);
-      const toReplace = number1 + "" + operator + "" + number2;
+
+      let toReplace = number1 + "" + operator + "" + number2;
+      if (operator === "%") toReplace = number1 + "%";
 
       temp = temp.replace(toReplace, total);
 
@@ -103,7 +102,11 @@ export const convertValueIntoArray = value => {
     }
   }
 
-  return arrayValues;
+  function isValidArray() {
+    return arrayValues;
+  }
+
+  return isValidArray(arrayValues);
 };
 
 export const findParentheses = val => {
@@ -116,5 +119,6 @@ export const operations = {
   "*": (number1, number2) => parseFloat(number1) * parseFloat(number2),
   "+": (number1, number2) => parseFloat(number1) + parseFloat(number2),
   "-": (number1, number2) => parseFloat(number1) - parseFloat(number2),
+  "%": (number1, number2) => 100 / parseFloat(number1),
   "=": (number1, number2) => number2
 };
