@@ -1,11 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useMemo } from "react";
 import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CalcButton from "./components/CalcButton";
 import Form from "react-bootstrap/Form";
-import { keyList, backspaceKey, escapeKey, enterKey } from "./utils";
-import { isValidExpression } from "./validation";
+import { keyList, backspaceKey, escapeKey, enterKey } from "./constants";
 import {
   resolveNumberWithParenthesesTogether,
   resolvePercents,
@@ -15,8 +14,9 @@ import {
 import "./App.css";
 
 function App() {
-  const [value, setValue] = useState("");
-  const [invalidExpression] = useState(false);
+  const [value, setValue] = useState("/4-6");
+  const [invalidExpression, setInvalidExpression] = useState(false);
+  const [isCalculationCompleted, setCalculationCompleted] = useState(false);
 
   useEffect(() => {
     window.addEventListener("keydown", onKeydown);
@@ -27,6 +27,7 @@ function App() {
 
   const clearAll = () => {
     setValue("");
+    setCalculationCompleted(false);
   };
 
   const clearLast = () => {
@@ -35,20 +36,19 @@ function App() {
   };
 
   const calculate = () => {
-    const checkValid = isValidExpression(value);
-    if (checkValid) {
-      // setInvalidExpression(checkValid);
-      // return;
+    try {
+      let tmpValue = value;
+
+      tmpValue = resolvePercents(tmpValue);
+      tmpValue = resolveNumberWithParenthesesTogether(tmpValue);
+      tmpValue = resolveInsideParentheses(tmpValue);
+      tmpValue = resolveValue(tmpValue);
+
+      setValue(tmpValue);
+      setCalculationCompleted(true);
+    } catch (e) {
+      setInvalidExpression(e.message);
     }
-
-    let tmpValue = value;
-
-    tmpValue = resolvePercents(tmpValue);
-    tmpValue = resolveNumberWithParenthesesTogether(tmpValue);
-    tmpValue = resolveInsideParentheses(tmpValue);
-    tmpValue = resolveValue(tmpValue);
-
-    setValue(tmpValue);
   };
 
   const onKeydown = ({ key }) => {
@@ -73,10 +73,15 @@ function App() {
 
   const addValue = add => {
     const newValue = `${value}${add}`;
-
-    // if (!isValidValue(newValue)) return;
     setValue(newValue);
   };
+
+  const shouldDisplayAllClear = useMemo(
+    () => {
+      return isCalculationCompleted || !value;
+    },
+    [isCalculationCompleted, value]
+  );
 
   return (
     <Container>
@@ -86,7 +91,7 @@ function App() {
           <Col className="col-form-control">
             <Form.Control onChange={() => {}} value={value} />
             {invalidExpression && (
-              <Form.Text className="text-muted">Invalid expression</Form.Text>
+              <Form.Text className="text-muted">{invalidExpression}</Form.Text>
             )}
           </Col>
         </Row>
@@ -95,7 +100,11 @@ function App() {
           <CalcButton variant="secondary" operator="(" onClick={onClick} />
           <CalcButton variant="secondary" operator=")" onClick={onClick} />
           <CalcButton variant="secondary" operator="%" onClick={onClick} />
-          <CalcButton variant="warning" operator="CE" onClick={clearAll} />
+          {shouldDisplayAllClear ? (
+            <CalcButton variant="warning" operator="AC" onClick={clearAll} />
+          ) : (
+            <CalcButton variant="warning" operator="C" onClick={clearLast} />
+          )}
         </Row>
 
         <Row>
