@@ -4,28 +4,19 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import CalcButton from "./components/CalcButton";
 import Form from "react-bootstrap/Form";
-import {
-  keyList,
-  backspaceKey,
-  escapeKey,
-  enterKey,
-  operatorKeys,
-  operations
-} from "./utils";
+import { keyList, backspaceKey, escapeKey, enterKey } from "./utils";
 import { isValidExpression } from "./validation";
 import {
   resolveNumberWithParenthesesTogether,
   resolvePercents,
-  convertValueIntoArray,
   resolveInsideParentheses,
   resolveValue
 } from "./functions";
-import { isNumber } from "lodash";
 import "./App.css";
 
 function App() {
   const [value, setValue] = useState("");
-  const [invalidExpression, setInvalidExpression] = useState(false);
+  const [invalidExpression] = useState(false);
 
   useEffect(() => {
     window.addEventListener("keydown", onKeydown);
@@ -155,6 +146,7 @@ function App() {
         <a
           href="https://github.com/carlosrbta/react-calculator"
           target="_blank"
+          rel="noopener noreferrer"
         >
           Github
         </a>

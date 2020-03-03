@@ -1,5 +1,4 @@
 import { operations } from "./utils";
-import { isNumber } from "lodash";
 
 // Resolve numbers with parentheses together
 // Exemple 2(1+2) ---> 2*(1+2)
@@ -70,6 +69,7 @@ export const resolveValue = value => {
         temp = resolveValue(temp);
       }
     }
+    return {};
   });
   return temp;
 };
