@@ -1,7 +1,6 @@
 import React from "react";
 import {
   resolveNumberWithParenthesesTogether,
-  resolvePercents,
   convertValueIntoArray,
   resolveInsideParentheses,
   resolveValue
@@ -11,7 +10,6 @@ function calculate(value) {
   try {
     let tmpValue = value;
 
-    tmpValue = resolvePercents(tmpValue);
     tmpValue = resolveNumberWithParenthesesTogether(tmpValue);
     tmpValue = resolveInsideParentheses(tmpValue);
     tmpValue = resolveValue(tmpValue);
@@ -59,6 +57,12 @@ describe("Calculate", () => {
 
     expression = "0.5+2.3";
     expect(calculate(expression)).toBe(2.8);
+
+    expression = "100-10%";
+    expect(calculate(expression)).toBe(90);
+
+    expression = "10%";
+    expect(calculate(expression)).toBe(0.1);
   });
 
   test('evaluates expressions starting with a "-" operator', () => {
@@ -70,6 +74,17 @@ describe("Calculate", () => {
 
     expression = "-0.5+5.3";
     expect(calculate(expression)).toBe(4.8);
+  });
+
+  test("evaluates expressions with parentheses", () => {
+    expression = "10(20+5)";
+    expect(calculate(expression)).toBe(250);
+
+    expression = "-10(20-5)";
+    expect(calculate(expression)).toBe(-150);
+
+    expression = "5*(2+4(1+2)+3)";
+    expect(calculate(expression)).toBe(85);
   });
 
   test('should throw an error for expressions starting with any other operator apart from "-" ', () => {
