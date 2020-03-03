@@ -1,5 +1,17 @@
 # Calculator
 
+### Constraints
+
+- No use the `eval()` function to execute calculations
+- No use the `new Function('return ${value}')()` to execute calculations
+
+## User Stories
+
+- [ ] User can see a display showing the current number entered or the result of the last operation.
+- [ ] User can see an entry pad containing buttons for the digits 0-9, operations - '+', '-', '/', '%' and '=', a 'C' button (for clear), and an 'AC' button (for clear all).
+- [ ] User can click the 'AC' button to clear all internal work areas and to set the display to ''.
+- [ ] User can click the 'C' button to clear last digit.
+
 ## Available Scripts
 
 In the project directory, you can run:
