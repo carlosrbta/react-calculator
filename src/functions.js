@@ -36,10 +36,9 @@ export const resolveInsideParentheses = value => {
 };
 
 export const resolveValue = value => {
-  console.log("resolveValue", value);
   const operators = ["%", "*", "/", "+", "-"];
 
-  if (/^[%*+\/]/.test(value)) {
+  if (/^[%*+/]/.test(value)) {
     throw new Error("Cannot start the expression with invalid operators");
   }
 
