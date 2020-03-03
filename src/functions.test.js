@@ -57,12 +57,6 @@ describe("Calculate", () => {
 
     expression = "0.5+2.3";
     expect(calculate(expression)).toBe(2.8);
-
-    expression = "100-10%";
-    expect(calculate(expression)).toBe(90);
-
-    expression = "10%";
-    expect(calculate(expression)).toBe(0.1);
   });
 
   test('evaluates expressions starting with a "-" operator', () => {
@@ -74,6 +68,20 @@ describe("Calculate", () => {
 
     expression = "-0.5+5.3";
     expect(calculate(expression)).toBe(4.8);
+  });
+
+  test("evaluates expressions with percentes", () => {
+    expression = "100-10%";
+    expect(calculate(expression)).toBe(90);
+
+    expression = "10%";
+    expect(calculate(expression)).toBe(0.1);
+
+    expression = "25%*80";
+    expect(calculate(expression)).toBe(20);
+
+    expression = "10%+20";
+    expect(calculate(expression)).toBe(20.1);
   });
 
   test("evaluates expressions with parentheses", () => {
