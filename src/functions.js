@@ -1,12 +1,8 @@
-import { operations } from "./utils";
-
 // Resolve numbers with parentheses together
 // Exemple 2(1+2) ---> 2*(1+2)
 export const resolveNumberWithParenthesesTogether = value => {
   return value.replace(/[0-9]\(/g, e => e.replace("(", "*("));
 };
-
-export const removeParentheses = value => {};
 
 // Resolve numbers with %
 // Exemple 20% ---> 20/100
@@ -47,6 +43,10 @@ export const resolveInsideParentheses = value => {
 
 export const resolveValue = value => {
   const operators = ["*", "/", "+", "-"];
+
+  if (/^[*+\/]/.test(value)) {
+    throw new Error("Cannot start the expression with invalid operators");
+  }
 
   let temp = value;
   operators.map(op => {
@@ -109,4 +109,12 @@ export const convertValueIntoArray = value => {
 export const findParentheses = val => {
   const result = val.match(/([(])[^()]+[)]/);
   return result && result[0];
+};
+
+export const operations = {
+  "/": (number1, number2) => parseFloat(number1) / parseFloat(number2),
+  "*": (number1, number2) => parseFloat(number1) * parseFloat(number2),
+  "+": (number1, number2) => parseFloat(number1) + parseFloat(number2),
+  "-": (number1, number2) => parseFloat(number1) - parseFloat(number2),
+  "=": (number1, number2) => number2
 };
