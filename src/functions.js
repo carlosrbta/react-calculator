@@ -47,7 +47,6 @@ export const resolveInsideParentheses = value => {
 };
 
 export const resolveValue = value => {
-  console.log("resolveValue", value);
   const operators = ["*", "/", "+", "-"];
 
   let temp = value;
@@ -67,7 +66,7 @@ export const resolveValue = value => {
       temp = temp.replace(toReplace, total);
 
       index = arrayValues.findIndex(val => val === op);
-      if (index > 1) {
+      if (index >= 1) {
         temp = resolveValue(temp);
       }
     }
