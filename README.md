@@ -2,9 +2,9 @@
 
 ### Preview and Demo
 
-[Demo](http://localhost:3000)
+[Demo](https://carlosrbta.github.io/react-calculator/)
 
-![preview](https://user-images.githubusercontent.com/1446193/75791712-bc38f080-5d4b-11ea-87f2-1922cfba0689.png)
+![Preview](https://user-images.githubusercontent.com/1446193/75791712-bc38f080-5d4b-11ea-87f2-1922cfba0689.png)
 
 ### Constraints
 
