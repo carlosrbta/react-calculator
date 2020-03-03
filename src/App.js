@@ -14,7 +14,7 @@ import {
 import "./App.css";
 
 function App() {
-  const [value, setValue] = useState("/4-6");
+  const [value, setValue] = useState("");
   const [invalidExpression, setInvalidExpression] = useState(false);
   const [isCalculationCompleted, setCalculationCompleted] = useState(false);
 
@@ -28,11 +28,13 @@ function App() {
   const clearAll = () => {
     setValue("");
     setCalculationCompleted(false);
+    setInvalidExpression(false);
   };
 
   const clearLast = () => {
     const newValue = value.substring(0, value.length - 1);
     setValue(newValue);
+    setInvalidExpression(false);
   };
 
   const calculate = () => {
