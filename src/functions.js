@@ -1,3 +1,5 @@
+import { compact } from "lodash";
+
 // Resolve numbers with parentheses together
 // Exemple 2(1+2) ---> 2*(1+2)
 export const resolveNumberWithParenthesesTogether = value => {
@@ -59,7 +61,9 @@ export const resolveValue = value => {
       const total = operations[operator](number1, number2);
 
       let toReplace = number1 + "" + operator + "" + number2;
-      if (operator === "%") toReplace = number1 + "%";
+      if (operator === "%") {
+        toReplace = number1 + "%";
+      }
 
       temp = temp.replace(toReplace, total);
 
@@ -102,11 +106,7 @@ export const convertValueIntoArray = value => {
     }
   }
 
-  function isValidArray() {
-    return arrayValues;
-  }
-
-  return isValidArray(arrayValues);
+  return compact(arrayValues);
 };
 
 export const findParentheses = val => {
@@ -119,6 +119,9 @@ export const operations = {
   "*": (number1, number2) => parseFloat(number1) * parseFloat(number2),
   "+": (number1, number2) => parseFloat(number1) + parseFloat(number2),
   "-": (number1, number2) => parseFloat(number1) - parseFloat(number2),
-  "%": (number1, number2) => 100 / parseFloat(number1),
+  "%": (number1, number2) => {
+    if (!number2) return 100 / parseFloat(number1);
+    return parseFloat(number1) / 100;
+  },
   "=": (number1, number2) => number2
 };
