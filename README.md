@@ -1,6 +1,6 @@
 # Calculator
 
-### Preview and Demo
+### Demo and preview
 
 [Demo](https://carlosrbta.github.io/react-calculator/)
 
