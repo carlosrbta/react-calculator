@@ -1,5 +1,3 @@
-import { compact } from "lodash";
-
 // Resolve numbers with parentheses together
 // Exemple 2(1+2) ---> 2*(1+2)
 export const resolveNumberWithParenthesesTogether = value => {
@@ -105,7 +103,7 @@ export const convertValueIntoArray = value => {
     }
   }
 
-  return compact(arrayValues);
+  return arrayValues.filter(a => a);
 };
 
 export const findParentheses = val => {
