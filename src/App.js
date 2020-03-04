@@ -154,9 +154,9 @@ function App() {
       <div className="footer">
         <a
           className="github-button"
-          href="https://github.com/carlosrbta"
+          href="https://github.com/carlosrbta/react-calculator"
           data-icon="octicon-star"
-          aria-label="Star ntkme/github-buttons on GitHub"
+          aria-label="Star carlosrbta/react-calculator on GitHub"
         >
           Star
         </a>
