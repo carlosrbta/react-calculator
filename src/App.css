@@ -53,4 +53,8 @@ body,
 .footer {
   position: absolute;
   bottom: 5px;
+
+  width: 190px;
+  display: flex;
+  justify-content: space-between;
 }

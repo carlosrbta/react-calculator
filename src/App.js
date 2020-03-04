@@ -153,11 +153,20 @@ function App() {
 
       <div className="footer">
         <a
-          href="https://github.com/carlosrbta/react-calculator"
-          target="_blank"
-          rel="noopener noreferrer"
+          className="github-button"
+          href="https://github.com/ntkme/github-buttons"
+          data-icon="octicon-star"
+          aria-label="Star ntkme/github-buttons on GitHub"
         >
-          Github
+          Star
+        </a>
+
+        <a
+          className="github-button"
+          href="https://github.com/carlosrbta"
+          aria-label="Follow @carlosrbta on GitHub"
+        >
+          Follow @carlosrbta
         </a>
       </div>
     </Container>
