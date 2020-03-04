@@ -154,7 +154,7 @@ function App() {
       <div className="footer">
         <a
           className="github-button"
-          href="https://github.com/ntkme/github-buttons"
+          href="https://github.com/carlosrbta"
           data-icon="octicon-star"
           aria-label="Star ntkme/github-buttons on GitHub"
         >
