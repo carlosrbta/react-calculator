@@ -93,6 +93,9 @@ describe("Calculate", () => {
 
     expression = "5*(2+4(1+2)+3)";
     expect(calculate(expression)).toBe(85);
+
+    expression = "2*(10+5+(2+3)";
+    expect(calculate(expression)).toBe(40);
   });
 
   test('should throw an error for expressions starting with any other operator apart from "-" ', () => {
